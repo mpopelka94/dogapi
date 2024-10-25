@@ -1,0 +1,17 @@
+# Selecting Python 3.10.10
+FROM python:3.10.10
+
+# Environment variable sending output directly to terminal
+ENV PYTHONUNBUFFERED 1
+
+# Creating the container root directory for DogAPI
+RUN mkdir /dogapi
+
+# Setting the container's working directory to dogapi for DogAPI
+WORKDIR /dogapi
+
+# Populating the container with the contents of the root directory (dogapi).
+ADD . /dogapi
+
+# Running the requirements file to satisfy all dependencies
+RUN pip install -r requirements.txt
