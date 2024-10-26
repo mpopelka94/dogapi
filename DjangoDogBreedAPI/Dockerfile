@@ -10,8 +10,15 @@ RUN mkdir /dogapi
 # Setting the container's working directory to dogapi for DogAPI
 WORKDIR /dogapi
 
-# Populating the container with the contents of the root directory (dogapi).
-ADD . /dogapi
-
-# Running the requirements file to satisfy all dependencies
+# Installing and running the requirements file to satisfy all dependencies
+COPY requirements.txt /dogapi/
 RUN pip install -r requirements.txt
+
+# Populating the container with the contents of the root directory (dogapi).
+COPY . /dogapi
+
+# Open port 8000 for the app to run on
+EXPOSE 8000
+
+# Send the "runserver" command to start the application
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
